@@ -1,0 +1,39 @@
+// Function for Hero Button
+function explore() {
+    document.getElementById('regulations').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Mobile Menu Toggle
+function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    if (links.style.display === "flex") {
+        links.style.display = "none";
+    } else {
+        links.style.display = "flex";
+        links.style.direction = "column";
+        links.style.position = "absolute";
+        links.style.top = "70px";
+        links.style.right = "10%";
+        links.style.background = "white";
+        links.style.padding = "20px";
+        links.style.boxShadow = "0 10px 20px rgba(0,0,0,0.1)";
+    }
+}
+
+// Intersection Observer for scroll animations
+const observerOptions = { threshold: 0.2 };
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.card, .plan-card').forEach(el => {
+    el.style.opacity = "0";
+    el.style.transform = "translateY(30px)";
+    el.style.transition = "all 0.6s ease-out";
+    observer.observe(el);
+});
